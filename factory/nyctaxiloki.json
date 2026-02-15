@@ -1,0 +1,9 @@
+{
+	"name": "nyctaxiloki",
+	"location": "eastus",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "320df599-7e1e-4481-862a-aa9ed2b1f7ba",
+		"tenantId": "72663153-86fe-4148-a4d7-53f7f21e7179"
+	}
+}
