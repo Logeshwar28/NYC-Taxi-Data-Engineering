@@ -1,44 +1,34 @@
-# NYC-Taxi-Data-Engineering
+# NYC Taxi Data Engineering Pipeline
 
-Project Overview
-This project demonstrates a complete End-to-End Data Engineering Pipeline using the NYC Taxi Public Dataset. The goal was to build a scalable Medallion Architecture (Bronze, Silver, Gold) to ingest, transform, and visualize large-scale trip data.
+## Project Overview
+This project demonstrates a complete **End-to-End Data Engineering Pipeline** using the NYC Taxi Public Dataset. The goal was to build a scalable Medallion Architecture (Bronze, Silver, Gold) to ingest, transform, and visualize large-scale trip data.
 
-Tech Stack
-Orchestration: Azure Data Factory (ADF)
 
-Compute: Azure Databricks (PySpark & Spark SQL)
 
-Storage: Azure Data Lake Storage (ADLS Gen2)
+## Tech Stack
+* **Orchestration**: Azure Data Factory (ADF)
+* **Compute**: Azure Databricks (PySpark & Spark SQL)
+* **Storage**: Azure Data Lake Storage (ADLS Gen2)
+* **Governance**: Unity Catalog & Service Principals
+* **Visualization**: Power BI
 
-Governance: Unity Catalog & Service Principals
+## Architecture & Workflow
 
-Visualization: Power BI
+### 1. Ingestion (Bronze Layer)
+* Utilized **Azure Data Factory** to ingest raw Parquet files into the Bronze container of ADLS Gen2.
+* Maintained raw data history for audit and reprocessing.
 
-Version Control: GitHub (CI/CD via ARM Templates)
+### 2. Transformation (Silver Layer)
+* Developed **PySpark notebooks** in Databricks for data cleaning and schema enforcement.
+* Optimized datasets by saving them as **Delta Tables**.
 
-Architecture & Workflow
-1. Ingestion (Bronze Layer)
-Utilized Azure Data Factory to ingest raw Parquet files from the source into the Bronze container of ADLS Gen2.
+### 3. Aggregation (Gold Layer)
+* Created business-level summaries (e.g., total trips, revenue per vendor) using **Spark SQL**.
+* Prepared datasets for reporting and BI tools.
 
-Data is stored in its raw format to ensure a full history of source data is maintained.
 
-2. Transformation (Silver Layer)
-Developed a PySpark notebook in Databricks to clean raw data.
 
-Performed schema enforcement, handled null values, and converted data types for optimization.
-
-Saved the cleaned data as Delta Tables to support ACID transactions.
-
-3. Aggregation (Gold Layer)
-Created business-level summaries using Spark SQL and PySpark.
-
-Calculated metrics such as total trips, average fare, and revenue per vendor.
-
-Stored final datasets in the Gold layer, ready for downstream reporting.
-
-Key Challenges & Solutions
-Security & Governance: Configured Unity Catalog with Service Principals to manage fine-grained access control to ADLS Gen2.
-
-Security Compliance: Resolved GitHub push rejections caused by hardcoded secrets by implementing Secret Scanning best practices.
-
-Data Consistency: Used ARM Templates for ADF to ensure the pipeline configuration is version-controlled and reproducible.
+## Key Challenges & Solutions
+* **Security Compliance**: Resolved GitHub push rejections by identifying and removing hardcoded secrets.
+* **Governance**: Configured Unity Catalog with Service Principals for secure data access.
+* **CI/CD**: Implemented version control using **ARM Templates** for ADF.
